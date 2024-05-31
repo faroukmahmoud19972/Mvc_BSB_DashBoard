@@ -1,0 +1,65 @@
+﻿@model MvcDemo4.BL.Models.EmployeeVM
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="block-header">
+    <h2>Delete Employee</h2>
+</div>
+
+
+<form class="form-group" asp-controller="Employee" asp-action="Delete">
+
+    <br/>
+
+    <center>
+        <h1>Are You sure to Delete this Employee !!!!!</h1>
+    </center>
+
+    <br />
+
+
+    <label asp-for="Name">Name</label>
+    <input type="text" class="form-control" asp-for="Name" disabled/>
+    <br />
+
+
+    <label asp-for="Salary">Salary</label>
+    <input type="text" class="form-control" asp-for="Salary" disabled />
+    <br />
+
+    <label asp-for="Email">Email</label>
+    <input type="text" class="form-control" asp-for="Email" disabled />
+    <br />
+
+    <label asp-for="Address">Address</label>
+    <input type="text" class="form-control" asp-for="Address" disabled />
+    <br />
+
+    <label asp-for="HireDate">Hire Date</label>
+    <input type="date" class="form-control" asp-for="HireDate" disabled />
+    <br />
+
+
+    <label asp-for="Notes">Notes</label>
+    <textarea rows="4" class="form-control" asp-for="Notes" disabled></textarea>
+    <br />
+
+    <div class="demo-checkbox">
+        <input type="checkbox" asp-for="IsActive" checked="" disabled>
+        <label asp-for="IsActive">Is Active</label>
+    </div>
+    <br />
+
+    <select asp-for="DepartmentId" asp-items="(SelectList)ViewBag.DepartmentList" disabled>
+        <option>Choose Department</option>
+    </select>
+    <br />
+
+    <center>
+        <input type="submit" value="Delete" class="btn btn-success" />
+        <input type="reset" value="Cancel" class="btn btn-danger" />
+    </center>
+
+</form>
+

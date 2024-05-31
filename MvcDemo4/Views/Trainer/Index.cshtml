@@ -1,0 +1,54 @@
+﻿@model IEnumerable<MvcDemo4.BL.Models.TrainerViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    th {
+        text-align: center !important;
+    }
+</style>
+
+<div class="block-header">
+    <a asp-controller="trainer" asp-action="INDEX">Home/Trainer/Trainer Card</a>
+
+</div>
+
+<a asp-controller="trainer" asp-action="Create" class="btn btn-primary">Create New Department</a>
+
+
+<table class="table table-bordered table-striped text-center">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Website</th>
+            <th>Description</th>
+            <th>HireDate</th>
+            <th>Details</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Email</td>
+                <td>@item.Website</td>
+                <td>@item.Description</td>
+                <td>@item.HireDate</td>
+                <td><a asp-controller="trainer" asp-action="detail" asp-route-id="@item.Id" class="btn btn-primary ">detail</a></td>
+                <td><a asp-controller="trainer" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a></td>
+                <td><a asp-controller="trainer" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a></td>
+            </tr>
+
+        }
+    </tbody>
+
+</table>
+

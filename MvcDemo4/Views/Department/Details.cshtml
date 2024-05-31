@@ -1,0 +1,39 @@
+﻿@model MvcDemo4.BL.Models.DepartmentVM
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+@section BootstrapSelect{
+    <link href="~/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+}
+
+
+<label asp-for="Id">Department Id</label>
+@*    <input type="text" class="form-control" id="Name" name="Name" />*@
+<input type="text" class="form-control" asp-for="Id" disabled />
+
+<br />
+<br />
+
+
+<label asp-for="Name">Department Name</label>
+@*    <input type="text" class="form-control" id="Name" name="Name" />*@
+<input type="text" class="form-control" asp-for="Name" disabled />
+
+<br />
+<br />
+
+
+<label asp-for="Code">Department Code</label>
+<input type="text" class="form-control" asp-for="Code" disabled />
+
+<br />
+<br />
+
+<center>
+        <a asp-controller="Department" asp-action="Index" asp-route-Id="@Model.Id" class="btn btn-info">Back To Data</a>
+    <a asp-controller="Department" asp-action="Edit"      asp-route-Id="@Model.Id" class="btn btn-warning">Edit Data</a>
+    <a asp-controller="Department" asp-action="Delete"    asp-route-Id="@Model.Id"  class="btn btn-danger">Delete Data</a>
+</center>

@@ -1,0 +1,253 @@
+﻿@model MvcDemo4.BL.Models.EmployeeVM
+@inject MvcDemo4.BL.Interface.ICountryRepository country
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="block-header">
+    <h2>Create New Employee</h2>
+</div>
+
+
+<form class="form-group" asp-controller="Employee" asp-action="Create">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+
+
+    <label asp-for="Name">Name</label>
+    <input type="text" class="form-control" asp-for="Name" />
+    <span asp-validation-for="Name" class="text-danger"></span>
+    <br />
+
+
+    <label asp-for="Salary">Salary</label>
+    <input type="text" class="form-control" asp-for="Salary" />
+    <span asp-validation-for="Salary" class="text-danger"></span>
+    <br />
+
+    <label asp-for="Email">Email</label>
+    <input type="text" class="form-control" asp-for="Email" />
+    <span asp-validation-for="Email" class="text-danger"></span>
+    <br />
+
+    <label asp-for="Address">Address</label>
+    <input class="form-control" asp-for="Address" />
+    <span asp-validation-for="Address" class="text-danger"></span>
+    <br />
+
+    <label asp-for="HireDate">Hire Date</label>
+    <input type="date" class="form-control" asp-for="HireDate" />
+    <span asp-validation-for="HireDate" class="text-danger"></span>
+    <br />
+
+
+    <label asp-for="Notes">Notes</label>
+    <textarea rows="4" class="form-control" asp-for="Notes"></textarea>
+    <span asp-validation-for="Notes" class="text-danger"></span>
+    <br />
+
+    <div class="demo-checkbox">
+        <input type="checkbox" asp-for="IsActive" checked="">
+        <label asp-for="IsActive">Is Active</label>
+        <span asp-validation-for="IsActive" class="text-danger"></span>
+    </div>
+    <br />
+
+
+    <select id="CountryList">
+        <option>Choose Country </option>
+        @foreach (var item in country.Get())
+        {
+            <option value="@item.Id">@item.Name </option>
+
+        }
+    </select>
+
+    <br />
+    <br />
+
+
+    <select id="CityList">
+        <option>Choose City </option>
+    </select>
+
+
+    <br />
+
+    <br />
+
+
+    <select asp-for="DistrictId">
+        <option >Choose District </option>
+    </select>
+
+    <br />
+    <br />
+
+
+    <select asp-for="DepartmentId" asp-items="(SelectList)ViewBag.DepartmentList">
+
+        @*<select class="form-select" id="drpartmentid" asp-for="DepartmentId" asp-items="(SelectList)ViewBag.DepartmentList">*@
+
+            <option selected disabled >Choose Department</option>
+        </select>
+
+
+
+        @*@section scripts {
+            <script>
+                $(document).ready(function () {
+                    $('#drpartmentid').on('change', function () {
+                        console.log($(this).val())
+                    })
+                })
+
+
+            </script>
+
+        }*@
+
+
+
+
+        <center>
+            <input type="submit" value="Save" class="btn btn-primary" />
+            <input type="reset" value="Cancle" class="btn btn-danger" />
+        </center>
+
+</form>
+
+
+@section MicrosoftValidation{
+    <script src="~/plugins/jquery-validation/jquery.validate.js"></script>
+    <script src="~/plugins/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        //$(function () {
+
+        //    $("#CountryList").change(function () {
+        //        var countryid = $("#CountryList option:selected").val();
+
+        //        $("#CityList").empty();
+        //        $("#CityList").append("<option>Choose City</option>")
+        //        $.ajax({
+        //            type: "POST",
+        //            url: "/Employee/GetCityDataByCountryId",
+        //            data: { countryid: countryid },
+        //            success: function (res) {
+        //                $.each(res, function (i, e) {
+        //                    console.log(res);
+        //                    $("#CityList").append("<option value='" + e.Id + "'>" + e.Name + "</option>")
+        //                });
+
+        //            }
+        //        });
+        //    });
+
+        //    $("#CityList").change(function () {
+        //        var cityid = $("#cityList option:selected").val();
+
+        //        $("#DistrictId").empty();
+        //        $("#DistrictId").append("<option>Choose District</option>")
+        //        $.ajax({
+        //            type: "POST",
+        //            url: "/Employee/GetDistrictDataByCityId",
+        //            data: { cityid: cityid },
+        //            success: function (res) {
+        //                $.each(res, function (i, e) {
+        //                    $("#DistrictId").append("<option value='" + e.Id + "'>" + e.Name + "</option>")
+        //                });
+
+        //            }
+        //        })
+        //    });
+        //});
+
+        $(function () {
+            $("#CountryList").on('change', function () {
+                var countryId = $("#CountryList option:selected").val();
+                $("#CityList").empty();
+                $("#CityList").append("<option>Choose City</option>")
+                $.ajax({
+                    type: "POST",
+                    url: "/Employee/GetCityDataByCountryId",
+                    data: { ctryId: countryId },
+                    success: function (res) {
+                        console.log(res)
+                        $.each(res, function (i,e) {
+                            $("#CityList").append(`<option value=${ e.Id }>${e.Name}</option>`);
+                        }); 
+
+                    }
+                });
+
+            }); 
+
+
+
+            $("#CityList").on('change', function () {
+                var cityId = $("#CityList option:selected").val();
+                $("#DistrictId").empty();
+                $("#DistrictId").append("<option>Choose District</option>")
+                $.ajax({
+                    type: "POST",
+                    url: "/Employee/GetDistrictDataByCityId",
+                    data: { ctyId: cityId },
+                    success: function (res) {
+                        console.log(res)
+                        $.each(res, function (i, e) {
+                            $("#DistrictId").append(`<option value=${e.Id}>${e.Name}</option>`);
+                        });
+
+                    }
+                });
+
+            }); 
+
+
+
+
+
+        });
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+}
+
+
+
+
+

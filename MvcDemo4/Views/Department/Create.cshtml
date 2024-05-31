@@ -1,0 +1,41 @@
+﻿@model MvcDemo4.BL.Models.DepartmentVM
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="block-header">
+    <h2>Create</h2>
+</div>  
+
+@*<form class="form-group" action="/Department/Create" method="post">*@
+<form class="form-group"asp-controller="Department" asp-action="Create">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+
+
+    <label asp-for="Name">Department Name</label>
+@*    <input type="text" class="form-control" id="Name" name="Name" />*@
+    <input type="text" class="form-control"  asp-for="Name"/>
+    <span asp-validation-for="Name" class="text-danger"></span>
+    <br /><br />
+
+
+    <label asp-for="Code">Department Code</label>
+    <input type="text" class="form-control" asp-for="Code" />
+    <span asp-validation-for="Code" class="text-danger"></span>
+    <br /><br />
+
+    <center>
+        <input type="submit" class="btn btn-success " value="Save" />
+        <input type="reset" class="btn btn-danger " value="Cancel" />
+    </center>
+
+</form>
+
+
+@section MicrosoftValidation{
+
+<script src="e:\programming_learning\dotnetprojects\mvcdemo4\mvcdemo4\wwwroot\plugins\jquery-validation\jquery.validate.js"></script>
+<script src="e:\programming_learning\dotnetprojects\mvcdemo4\mvcdemo4\wwwroot\plugins\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js"></script>
+    }
